@@ -1,0 +1,241 @@
+<?php
+include 'starter.php';
+
+$sort_order = isset($_GET['sort']) && $_GET['sort'] == 'asc' ? 'asc' : 'desc';
+$new_sort_order = $sort_order == 'asc' ? 'desc' : 'asc';
+$selected_year = isset($_GET['tahun_alumni']) ? $_GET['tahun_alumni'] : '';
+$selected_training = isset($_GET['nama_pelatihan']) ? $_GET['nama_pelatihan'] : '';
+$selected_batch = isset($_GET['angkatan_alumni']) ? $_GET['angkatan_alumni'] : '';
+
+$query_years = mysqli_query($koneksi, "SELECT DISTINCT tahun_alumni FROM kerjakuliah ORDER BY tahun_alumni ASC");
+$query_trainings = mysqli_query($koneksi, "SELECT DISTINCT nama_pelatihan FROM kerjakuliah ORDER BY nama_pelatihan ASC");
+$query_batches = mysqli_query($koneksi, "SELECT DISTINCT angkatan_alumni FROM kerjakuliah ORDER BY angkatan_alumni ASC");
+?>
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Alumni</title>
+    <style>
+        @page {
+            size: A4 landscape;
+            margin: 1.5cm;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            font-size: 11px;
+            background: #fff;
+        }
+        .container {
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+            word-break: break-word;
+            font-size: 10.5px;
+        }
+        th,
+        td {
+            border: 1px solid black;
+            padding: 5px 4px;
+            text-align: left;
+            vertical-align: top;
+        }
+        /* Kolom No. sampai Tahun Alumni rata tengah */
+        th.centered, td.centered {
+            text-align: center !important;
+            vertical-align: middle;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        h1,
+        h2,
+        h3 {
+            text-align: center;
+            margin: 0.2em 0;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .header img {
+            width: 100px;
+            height: 100px;
+            margin-right: 40px;
+        }
+
+        .header div {
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 1.2em;
+            margin-right: 100px;
+        }
+        .header h2 {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-right: 100px;
+        }
+        .header h3 {
+            font-size: 1em;
+            margin-right: 100px;
+        }
+
+        hr {
+            border: 2px solid black;
+        }
+
+        .training-header {
+            font-size: 1.3em;
+        }
+
+        .print-button {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+        @media print {
+            .print-button,
+            .filter-form {
+                display: none;
+            }
+            body {
+                margin: 0;
+                background: #fff;
+            }
+            .container {
+                margin: 0;
+                width: 100%;
+                max-width: 100%;
+            }
+            table {
+                page-break-inside: auto;
+            }
+            tr {
+                page-break-inside: avoid;
+                page-break-after: auto;
+            }
+            th, td {
+                font-size: 10px;
+                padding: 4px 2px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="../../../images/Logo balai.png" alt="Logo">
+            <div>
+                <h1>PEMERINTAH PROVINSI KALIMANTAN SELATAN</h1>
+                <h2>KEMENTRIAN DESA</h2>
+                <h2>PEMBANGUNAN DAERAH TERTINGGAL DAN TRANSMIGRASI</h2>
+                <h2>BALAI PELATIAHAN DAN PEMBERDAYAAN DESA DAERAH TERTINGGAL DAN TRANSMIGRASI BANJARMASIN</h2>
+                <h3>Handli Bakti, Alalak Utara, Barito Kuala Regency, Kalamantan Selatan Telepon: (0511) 472-0000</h3>
+            </div>
+        </div>
+        <hr>
+        <div class="print-button">
+            <button onclick="window.print()">Cetak</button>
+        </div>
+        <div class="filter-form">
+            <form method="GET" action="print.php">
+            <div class="form-group">
+                <label for="tahun_alumni">Filter by Tahun Alumni:</label>
+                <select name="tahun_alumni" id="tahun_alumni" class="form-control">
+                    <option value="">All</option>
+                    <?php while ($year = mysqli_fetch_assoc($query_years)) { ?>
+                        <option value="<?php echo $year['tahun_alumni']; ?>" <?php if ($selected_year == $year['tahun_alumni']) echo 'selected'; ?>>
+                            <?php echo $year['tahun_alumni']; ?>
+                        </option>
+                    <?php } ?>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="nama_pelatihan">Filter by Nama Pelatihan:</label>
+                <select name="nama_pelatihan" id="nama_pelatihan" class="form-control">
+                    <option value="">All</option>
+                    <?php while ($training = mysqli_fetch_assoc($query_trainings)) { ?>
+                        <option value="<?php echo $training['nama_pelatihan']; ?>" <?php if ($selected_training == $training['nama_pelatihan']) echo 'selected'; ?>>
+                            <?php echo $training['nama_pelatihan']; ?>
+                        </option>
+                    <?php } ?>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="angkatan_alumni">Filter by Angkatan Alumni:</label>
+                <select name="angkatan_alumni" id="angkatan_alumni" class="form-control">
+                    <option value="">All</option>
+                    <?php while ($batch = mysqli_fetch_assoc($query_batches)) { ?>
+                        <option value="<?php echo $batch['angkatan_alumni']; ?>" <?php if ($selected_batch == $batch['angkatan_alumni']) echo 'selected'; ?>>
+                            <?php echo $batch['angkatan_alumni']; ?>
+                        </option>
+                    <?php } ?>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </form>
+    </div>
+    <?php
+    $query = mysqli_query($koneksi, "SELECT DISTINCT nama_pelatihan FROM kerjakuliah WHERE nama_pelatihan LIKE '%$selected_training%' ORDER BY nama_pelatihan ASC");
+    while ($row = mysqli_fetch_assoc($query)) {
+        $nama_pelatihan = $row['nama_pelatihan'];
+        echo "<h2 class='training-header'>Daftar Alumni: $nama_pelatihan</h2>";
+        echo "<table>
+                <tr>
+                    <th class='centered' style='width:35px;'>No.</th>
+                    <th class='centered'>Nama</th>
+                    <th class='centered'>NIK</th>
+                    <th class='centered'>Jenis Kelamin</th>
+                    <th class='centered'>Tempat Lahir</th>
+                    <th class='centered'>Tanggal Lahir</th>
+                    <th class='centered'>Agama</th>
+                    <th class='centered'>Pendidikan</th>
+                    <th class='centered'>Alamat</th>
+                    <th class='centered'>No Telepon</th>
+                    <th class='centered'>Angkatan Alumni</th>
+                    <th class='centered'>Tahun Alumni</th>
+                </tr>";
+        $query_alumni = mysqli_query($koneksi, "SELECT * FROM kerjakuliah WHERE nama_pelatihan='$nama_pelatihan' AND tahun_alumni LIKE '%$selected_year%' AND angkatan_alumni LIKE '%$selected_batch%' ORDER BY tahun_alumni $sort_order");
+        $no = 1;
+        while ($alumni = mysqli_fetch_assoc($query_alumni)) {
+            echo "<tr>";
+            echo "<td class='centered' style='width:35px;'>" . $no . "</td>";
+            echo "<td class='centered'>" . $alumni['nama'] . "</td>";
+            echo "<td class='centered'>" . $alumni['nik'] . "</td>";
+            echo "<td class='centered'>" . $alumni['jenis_kelamin'] . "</td>";
+            echo "<td class='centered'>" . $alumni['tempat_lahir'] . "</td>";
+            echo "<td class='centered'>" . $alumni['tanggal_lahir'] . "</td>";
+            echo "<td class='centered'>" . $alumni['agama'] . "</td>";
+            echo "<td class='centered'>" . $alumni['pendidikan_terakhir'] . "</td>";
+            echo "<td class='centered'>" . $alumni['alamat'] . "</td>";
+            echo "<td class='centered'>" . $alumni['no_telepon'] . "</td>";
+            echo "<td class='centered'>" . $alumni['angkatan_alumni'] . "</td>";
+            echo "<td class='centered'>" . $alumni['tahun_alumni'] . "</td>";
+            echo "</tr>";
+            $no++;
+        }
+        echo "</table><br>";
+    }
+    ?>
+
+    <div style="text-align: right;"></div>
+    <strong>Tanda Tangan</strong><br>
+    ________________<br>
+    Nama Pejabat<br>
+    Jabatan Pejabat
+    </div>
+
+    <!-- Script printToPDF dihapus, hanya window.print digunakan pada tombol Cetak -->
+</body>
+
+</html>
