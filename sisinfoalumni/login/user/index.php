@@ -128,11 +128,11 @@ $_SESSION['start_session'] = time();
                     $previous = $paging - 1;
                     $next = $paging + 1;
 
-                    $query = mysqli_query($koneksi, "SELECT * FROM kerja");
+                    $query = mysqli_query($koneksi, "SELECT * FROM `kerja`");
                     $totalquery = mysqli_num_rows($query);
                     $totalpaging = ceil($totalquery / $limit);
 
-                    $querydata = mysqli_query($koneksi, "SELECT * FROM kerja ORDER BY id DESC limit $main_page, $limit");
+                    $querydata = mysqli_query($koneksi, "SELECT * FROM `kerja` ORDER BY id DESC limit $main_page, $limit");
                     $no = 1;
                     while ($row = mysqli_fetch_assoc($querydata)) {
                     ?>

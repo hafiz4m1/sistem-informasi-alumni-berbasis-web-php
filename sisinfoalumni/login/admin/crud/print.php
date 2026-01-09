@@ -159,7 +159,7 @@ $query_trainings = mysqli_query($koneksi, "SELECT DISTINCT jenis_pelatihan FROM 
         </form>
     </div>
     <?php
-    $query = mysqli_query($koneksi, "SELECT DISTINCT jenis_pelatihan FROM kerja WHERE jenis_pelatihan LIKE '%$selected_training%' ORDER BY jenis_pelatihan ASC");
+    $query = mysqli_query($koneksi, "SELECT DISTINCT jenis_pelatihan FROM `kerja` WHERE jenis_pelatihan LIKE '%$selected_training%' ORDER BY jenis_pelatihan ASC");
     while ($row = mysqli_fetch_assoc($query)) {
         $jenis_pelatihan = $row['jenis_pelatihan'];
         echo "<h2 class='training-header'>Daftar Pelatih: $jenis_pelatihan</h2>";
@@ -171,7 +171,7 @@ $query_trainings = mysqli_query($koneksi, "SELECT DISTINCT jenis_pelatihan FROM 
                     <th class='centered'>Pendidikan Terakhir</th>
                     <th class='centered'>Tahun Kerja</th>
                 </tr>";
-        $query_pelatih = mysqli_query($koneksi, "SELECT * FROM kerja WHERE jenis_pelatihan='$jenis_pelatihan' ORDER BY jenis_pelatihan $sort_order");
+        $query_pelatih = mysqli_query($koneksi, "SELECT * FROM `kerja` WHERE jenis_pelatihan='$jenis_pelatihan' ORDER BY jenis_pelatihan $sort_order");
         if ($query_pelatih === false) {
             echo "<tr><td colspan='6' class='centered'>Query error: " . mysqli_error($koneksi) . "</td></tr>";
         } else {

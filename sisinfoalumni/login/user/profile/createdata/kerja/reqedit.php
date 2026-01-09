@@ -14,7 +14,7 @@ if ($_SESSION['level'] != "user") {
 
 if (isset($_GET['id'])) {
 	$id = ($_GET["id"]);
-	$query = "SELECT * FROM kerja where id='$id'";
+	$query = "SELECT * FROM `kerja` where id='$id'";
 	$result = mysqli_query($koneksi, $query);
 	if (!$result) {
 		die("Query Error: " . mysqli_errno($koneksi) .

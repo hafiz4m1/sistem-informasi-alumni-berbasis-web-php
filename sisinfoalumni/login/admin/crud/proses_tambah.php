@@ -29,7 +29,7 @@ if ($gambar != "") {
     $nama_gambar_baru = $angka_acak . '-' . $gambar;
     if (in_array($ekstensi, $ekstensi_diperbolehkan) === true) {
         move_uploaded_file($file_tmp, 'gambar/' . $nama_gambar_baru);
-        $query = "INSERT INTO kerja (nama,jenis_kelamin,pendidikan_terakhir,jenis_pelatihan,tahun_kerja,gambar) values ('$nama_kerja','$jenis_kelamin','$pendidikan_terakhir',
+        $query = "INSERT INTO `kerja` (nama,jenis_kelamin,pendidikan_terakhir,jenis_pelatihan,tahun_kerja,gambar) values ('$nama_kerja','$jenis_kelamin','$pendidikan_terakhir',
             '$jenis_pelatihan','$tahun','$nama_gambar_baru')";
         $result = mysqli_query($koneksi, $query);
         if (!$result) {
