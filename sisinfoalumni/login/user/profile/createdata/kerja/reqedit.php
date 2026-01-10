@@ -14,7 +14,7 @@ if ($_SESSION['level'] != "user") {
 
 if (isset($_GET['id'])) {
 	$id = ($_GET["id"]);
-	$query = "SELECT * FROM `kerja` where id='$id'";
+	$query = "SELECT * FROM kerja where id='$id'";
 	$result = mysqli_query($koneksi, $query);
 	if (!$result) {
 		die("Query Error: " . mysqli_errno($koneksi) .
@@ -60,21 +60,21 @@ if (isset($_GET['id'])) {
 
 
 	<div class="container-contact100">
-		<div class="wrap-contact100">
-			<form class="contact100-form validate-form" enctype="multipart/form-data" method="POST">
-				<input name="idrequest" value="<?php echo $data['id']; ?>" hidden />
+		<div class="wrap-contact100" style=" width: 1000px;">
+			<form class="contact100-form validate-form" enctype="multipart/form-data" method="POST" action="proses_edit.php" onsubmit="return validateForm();">
+				<input name="id" value="<?php echo $data['id']; ?>" hidden />
 				<span class="contact100-form-title">
-					Edit Data Kerja
+					Request Edit Data Pelatih
 				</span>
 
 				<div class="wrap-input100">
-					<span class="label-input100">Nama</span>
+					<span class="label-input100 validate-input" data-validate="Masukkan namamu!">Nama</span>
 					<input class="input100" type="text" name="nama" value="<?php echo $data['nama']; ?>" required>
 					<span class="focus-input100"></span>
 				</div>
 
 				<div class="wrap-input100">
-					<span class="label-input100">Jenis Kelamin</span>
+					<span class="label-input100 validate-input" data-validate="Jenis kelamin dibutuhkan!">Jenis Kelamin</span>
 					<div>
 						<select class="selection-2" name="gender">
 							<option value="Pria" <?php if ($data['jenis_kelamin'] == 'Pria'): ?> selected="selected" <?php endif; ?>>Pria</option>
@@ -83,32 +83,50 @@ if (isset($_GET['id'])) {
 					</div>
 					<span class="focus-input100"></span>
 				</div>
-				<div class="wrap-input100">
-					<span class="label-input100">pendidikan_terakhir</span>
-					<input class="input100" type="text" name="pendidikan_terakhir" value="<?php echo $data['pendidikan_terakhir']; ?>" required>
+
+				<div class="wrap-input100 validate-input" data-validate="Masukkan nama perusahaannya!">
+					<span class="label-input100">Pendidikan Terakhir</span>
+					<div>
+						<select class="selection-2" name="pendidikan_terakhir" required>
+							<option value="SD/MI" <?php if ($data['pendidikan_terakhir'] == 'SD/MI') echo 'selected'; ?>>SD/MI</option>
+							<option value="SMP/MTS" <?php if ($data['pendidikan_terakhir'] == 'SMP/MTS') echo 'selected'; ?>>SMP/MTS</option>
+							<option value="SMA/SMK" <?php if ($data['pendidikan_terakhir'] == 'SMA/SMK') echo 'selected'; ?>>SMA/SMK</option>
+							<option value="Sarjana S1" <?php if ($data['pendidikan_terakhir'] == 'Sarjana  S1') echo 'selected'; ?>>Sarjana S1</option>
+							<option value="PascaSarjana S2" <?php if ($data['pendidikan_terakhir'] == 'Pasca Sarjana S2') echo 'selected'; ?>>Pasca Sarjana S2</option>
+						</select>
+					</div>
 					<span class="focus-input100"></span>
 				</div>
 
-				<div class="wrap-input100">
-					<span class="label-input100">Pelatih</span>
-					<input class="input100" type="text" name="jenis_pelatihan" value="<?php echo $data['jenis_pelatihan']; ?>" required>
+							<div class="wrap-input100 validate-input" data-validate="Masukkan nama perusahaannya!">
+					<span class="label-input100">Jenis pelatihanmu</span>
+					<div>
+						<select class="selection-2" name="jenis_pelatihan" required>
+							<option value="Pelatihan Pengelolaan BUM Desa" <?php if ($data['jenis_pelatihan'] == 'Pelatihan Pengelolaan BUM Desa') echo 'selected'; ?>>Pelatihan Pengelolaan BUM Desa</option>
+							<option value="Pelatihan Pembangunan Desa Wisata" <?php if ($data['jenis_pelatihan'] == 'Pelatihan Pembangunan Desa Wisata') echo 'selected'; ?>>Pelatihan Pembangunan Desa Wisata</option>
+							<option value="Pelatihan Kader Pemberdayaan Masyarakat Desa" <?php if ($data['jenis_pelatihan'] == 'Pelatihan Kader Pemberdayaan Masyarakat Desa') echo 'selected'; ?>>Pelatihan Kader Pemberdayaan Masyarakat Desa</option>
+							<option value="Pelatihan Berbasis Kompetensi Calon Transmigran" <?php if ($data['jenis_pelatihan'] == 'Pelatihan Berbasis Kompetensi Calon Transmigran') echo 'selected'; ?>>Pelatihan Berbasis Kompetensi Calon Transmigran</option>
+							<option value="Pelatihan Produk Unggulan Kawasan Desa" <?php if ($data['jenis_pelatihan'] == 'Pelatihan Produk Unggulan Kawasan Desa') echo 'selected'; ?>>Pelatihan Produk Unggulan Kawasan Desa</option>
+						</select>
+					</div>
 					<span class="focus-input100"></span>
 				</div>
+			
 
-
-				<div class="wrap-input100">
+				<div class="wrap-input100 validate-input" data-validate="Masukkan tahun kerjamu!">
 					<span class="label-input100">Kapan kamu berkerja?</span><br>
 					<input class="input100" type="number" min="1900" max="2099" step="1" value="<?php echo $data['tahun_kerja']; ?>" name="tahun" required />
 					<span class="focus-input100"></span>
 				</div>
 
-				<img id="preview" src="../../../../admin/crud/gambar/<?php echo $data['gambar']; ?>" alt="" width="320px" />
+				<img id="preview" src="gambar/<?php echo $data['gambar']; ?>" alt="" width="320px" />
 
 				<div class="wrap-input100">
 					<span class="label-input100">Foto Profil</span><br>
 					<input type="file" name="gambar" accept="image/*" onchange="showLive(this,'preview')" />
 					<span class="focus-input100"></span>
 				</div>
+
 				<input type="hidden" name="permissions" value="1" />
 				<div class="container-contact100-form-btn">
 					<div class="wrap-contact100-form-btn">

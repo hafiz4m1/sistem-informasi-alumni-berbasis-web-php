@@ -29,12 +29,12 @@ if ($gambar != "") {
     $angka_acak     = rand(1, 999);
     $nama_gambar_baru = $angka_acak . '-' . $gambar;
     if (in_array($ekstensi, $ekstensi_diperbolehkan) === true) {
-        $query1 = "SELECT * FROM `kerja` where id='$id'";
+        $query1 = "SELECT * FROM kerja where id='$id'";
         $konquery = mysqli_query($koneksi, $query1);
         $runhapus =  mysqli_fetch_array($konquery);
         unlink("gambar/$runhapus[gambar]");
         move_uploaded_file($file_tmp, 'gambar/' . $nama_gambar_baru);
-        $query = "UPDATE `kerja` SET nama = '$nama_kerja', jenis_kelamin = '$jenis_kelamin', pendidikan_terakhir = '$pendidikan_terakhir', jenis_pelatihan = '$jenis_pelatihan', tahun_kerja = '$tahun', gambar = '$nama_gambar_baru'";
+        $query = "UPDATE kerja SET nama = '$nama_kerja', jenis_kelamin = '$jenis_kelamin', pendidikan_terakhir = '$pendidikan_terakhir', jenis_pelatihan = '$jenis_pelatihan', tahun_kerja = '$tahun', gambar = '$nama_gambar_baru'";
         $query .= "WHERE id = '$id'";
         $result = mysqli_query($koneksi, $query);
         if (!$result) {

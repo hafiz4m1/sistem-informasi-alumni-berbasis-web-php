@@ -60,11 +60,11 @@ if (isset($_GET['id'])) {
 
 
 	<div class="container-contact100">
-		<div class="wrap-contact100">
-			<form class="contact100-form validate-form" enctype="multipart/form-data" method="POST">
-				<input name="idrequest" type="hidden" value="<?php echo $data['id']; ?>" />
+			<div class="wrap-contact100" style=" width: 1000px;">
+			<form class="contact100-form validate-form" enctype="multipart/form-data" method="POST" action="proses_edit.php">
+				<input name="id" value="<?php echo $data['id']; ?>" hidden />
 				<span class="contact100-form-title">
-					Request Data Kerja dan Kuliah
+					Edit Data Alumni
 				</span>
 
 				<div class="wrap-input100">
@@ -110,7 +110,15 @@ if (isset($_GET['id'])) {
 
 				<div class="wrap-input100 validate-input" data-validate="Masukkan Pendidikan Terakhirmu!">
 					<span class="label-input100">Pendidikan</span>
-					<input class="input100" type="text" name="pendidikan_terakhir" value="<?php echo $data['pendidikan_terakhir']; ?>" required>
+					<div>
+						<select class="selection-2" name="pendidikan_terakhir" required>
+							<option value="SD/MI" <?php if ($data['pendidikan_terakhir'] == 'SD/MI') echo 'selected'; ?>>SD/MI</option>
+							<option value="SMP/MTS" <?php if ($data['pendidikan_terakhir'] == 'SMP/MTS') echo 'selected'; ?>>SMP/MTS</option>
+							<option value="SMA/SMK" <?php if ($data['pendidikan_terakhir'] == 'SMA/SMK') echo 'selected'; ?>>SMA/SMK</option>
+							<option value="Sarjana S1" <?php if ($data['pendidikan_terakhir'] == 'Sarjana  S1') echo 'selected'; ?>>Sarjana S1</option>
+							<option value="PascaSarjana S2" <?php if ($data['pendidikan_terakhir'] == 'Pasca Sarjana S2') echo 'selected'; ?>>Pasca Sarjana S2</option>
+						</select>
+					</div>
 					<span class="focus-input100"></span>
 				</div>
 
@@ -132,11 +140,49 @@ if (isset($_GET['id'])) {
 					<span class="focus-input100"></span>
 				</div>
 
-				<div class="wrap-input100 validate-input" data-validate="Masukkan Nama Pelatihan!">
-					<span class="label-input100">Nama Pelatihan</span>
-					<input class="input100" type="text" name="nama_pelatihan" value="<?php echo $data['nama_pelatihan']; ?>" required>
+				<div class="wrap-input100 validate-input" data-validate="Masukkan nama perusahaannya!">
+					<span class="label-input100">Jenis pelatihanmu</span>
+					<div>
+						<select class="selection-2" name="nama_pelatihan" required>
+							
+							<optgroup label="Pengelolaan BUM Desa">
+								<option value="Pengelolaan BUM Desa Manajerial dan Kepemimpinan">Pengelolaan BUM Desa Manajerial dan Kepemimpinan</option>
+								<option value="Pengelolaan BUM Desa Pengelolaan Keuangan">Pengelolaan BUM Desa Pengelolaan Keuangan</option>
+								<option value="Pengelolaan BUM Desa Pemasaran dan Pengembangan Usaha">Pengelolaan BUM Desa Pemasaran dan Pengembangan Usaha</option>
+								<option value="Pengelolaan BUM Desa Kewirausahaan Desa">Pengelolaan BUM Desa Kewirausahaan Desa</option>
+							</optgroup>
+
+							<optgroup label="Pembangunan Desa Wisata">
+								<option value="Pembangunan Desa Wisata Manajemen Destinasi Wisata">Pembangunan Desa Wisata Manajemen Destinasi Wisata</option>
+								<option value="Pembangunan Desa Wisata Pemasaran Digital Pariwisata">Pembangunan Desa Wisata Pemasaran Digital Pariwisata</option>
+								<option value="Pembangunan Desa Wisata Pelatihan Pemandu Lokal">Pembangunan Desa Wisata Pelatihan Pemandu Lokal</option>
+								<option value="Pembangunan Desa Wisata Pengembangan Paket Wisata">Pembangunan Desa Wisata Pengembangan Paket Wisata</option>
+								<option value="Pembangunan Desa Wisata Konservasi Budaya dan Lingkungan">Pembangunan Desa Wisata Konservasi Budaya dan Lingkungan</option>
+							</optgroup>
+
+							<optgroup label="Kader Pemberdayaan Masyarakat Desa">
+								<option value="Kader Pemberdayaan Masyarakat Desa Teknik Fasilitasi dan Advokasi">Kader Pemberdayaan Masyarakat Desa Teknik Fasilitasi dan Advokasi</option>
+								<option value="Kader Pemberdayaan Masyarakat Desa Pemetaan Potensi dan Masalah Desa">Kader Pemberdayaan Masyarakat Desa Pemetaan Potensi dan Masalah Desa</option>
+								<option value="Kader Pemberdayaan Masyarakat Desa Penyusunan Rencana Aksi Pemberdayaan">Kader Pemberdayaan Masyarakat Desa Penyusunan Rencana Aksi Pemberdayaan</option>
+							</optgroup>
+
+							<optgroup label="Calon Transmigran">
+								<option value="Calon Transmigran Keterampilan Pertanian dan Peternakan">Calon Transmigran Keterampilan Pertanian dan Peternakan</option>
+								<option value="Calon Transmigran Kewirausahaan dan Koperasi">Calon Transmigran Kewirausahaan dan Koperasi</option>
+								<option value="Calon Transmigran Adaptasi Sosial dan Budaya">Calon Transmigran Adaptasi Sosial dan Budaya</option>
+							</optgroup>
+
+							<optgroup label="Produk Unggulan Kawasan Desa">
+								<option value="Produk Unggulan Kawasan Desa Identifikasi dan Pengembangan Produk Lokal">Produk Unggulan Kawasan Desa Identifikasi dan Pengembangan Produk Lokal</option>
+								<option value="Produk Unggulan Kawasan Desa Standarisasi dan Sertifikasi Produk">Produk Unggulan Kawasan Desa Standarisasi dan Sertifikasi Produk</option>
+								<option value="Produk Unggulan Kawasan Desa Pemasaran dan Distribusi">Produk Unggulan Kawasan Desa Pemasaran dan Distribusi</option>
+							</optgroup>
+
+						</select>
+					</div>
 					<span class="focus-input100"></span>
 				</div>
+
 
 				<div class="wrap-input100 validate-input" data-validate="Tahun berapa anda menjadi alumni!">
 					<span class="label-input100">Alumni Tahun berapa?</span><br>
@@ -144,7 +190,7 @@ if (isset($_GET['id'])) {
 					<span class="focus-input100"></span>
 				</div>
 
-				<img id="preview" src="../../../../admin/crudkerkul/gambar/<?php echo $data['gambar']; ?>" alt="" width="320px" />
+				<img id="preview" src="gambar/<?php echo $data['gambar']; ?>" alt="" width="320px" />
 
 				<div class="wrap-input100">
 					<span class="label-input100">Foto Profil</span><br>

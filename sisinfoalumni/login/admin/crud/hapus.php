@@ -13,14 +13,14 @@ if (!isset($_GET['id'])) {
   die('Go-To Hell Shit. Anyway if you find any other bugs. reports it right away!');
 }
 $id = $_GET["id"];
-$querydel = "SELECT * FROM `kerja` WHERE id='$id'";
+$querydel = "SELECT * FROM kerja WHERE id='$id'";
 $konquery = mysqli_query($koneksi, $querydel);
 $runhapus =  mysqli_fetch_array($konquery);
 $gambar = $runhapus['gambar'];
 if ($gambar != "") {
   unlink("gambar/$runhapus[gambar]");
 }
-$query = "DELETE FROM `kerja` WHERE id='$id'";
+$query = "DELETE FROM kerja WHERE id='$id'";
 $hasil_query = mysqli_query($koneksi, $query);
 if (!$hasil_query) {
   die("Gagal menghapus data: " . mysqli_errno($koneksi) .

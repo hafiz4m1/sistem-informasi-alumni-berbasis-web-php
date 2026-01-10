@@ -9,7 +9,7 @@ if (isset($_POST['submit'])) {
     $nama_kerja = $_POST['nama'];
     $jenis_kelamin = $_POST['gender'];
     $pendidikan_terakhir = $_POST['pendidikan_terakhir'];
-    $jenis_pelatihan = $_POST['jeisn_pelatihan'];
+    $jenis_pelatihan = $_POST['jenis_pelatihan'];
     $tahun = $_POST['tahun'];
     $gambar = $_FILES['gambar']['name'];
     $pers = $_POST['permissions'];
@@ -31,7 +31,7 @@ if (isset($_POST['submit'])) {
             $nama_gambar_baru = $angka_acak . '-' . $gambar;
             if (in_array($ekstensi, $ekstensi_diperbolehkan) === true) {
                 move_uploaded_file($file_tmp, '../../../../admin/crud/gambar/' . $nama_gambar_baru);
-                $query = "INSERT INTO requestedit (id_request,jenis_table,nama,jenis_kelamin,pendidikan_terakhir,jeisn_pelatihan,tahun_kerja,request_by,gambar) values ('$id_request','kerja','$nama_kerja','$jenis_kelamin','$pendidikan_terakhir',
+                $query = "INSERT INTO requestedit (id_request,jenis_table,nama,jenis_kelamin,pendidikan_terakhir,jenis_pelatihan,tahun_kerja,request_by,gambar) values ('$id_request','kerja','$nama_kerja','$jenis_kelamin','$pendidikan_terakhir',
             '$jenis_pelatihan','$tahun','$nameuser','$nama_gambar_baru')";
                 $result = mysqli_query($koneksi, $query);
                 if (!$result) {
@@ -46,7 +46,7 @@ if (isset($_POST['submit'])) {
                 header("location:../../profile.php?pesan=Format yang diperbolehkan hanya PNG dan JPEG");
             }
         } else {
-            $query =  "INSERT INTO requestedit (id_request,jenis_table,nama,jenis_kelamin,pendidikan_terakhir,jeisn_pelatihan,tahun_kerja,request_by,gambar) values ('$id_request','kerja','$nama_kerja','$jenis_kelamin','$pendidikan_terakhir',
+            $query =  "INSERT INTO requestedit (id_request,jenis_table,nama,jenis_kelamin,pendidikan_terakhir,jenis_pelatihan,tahun_kerja,request_by,gambar) values ('$id_request','kerja','$nama_kerja','$jenis_kelamin','$pendidikan_terakhir',
         '$jenis_pelatihan','$tahun','$nameuser',null)";
             $result = mysqli_query($koneksi, $query);
             if (!$result) {

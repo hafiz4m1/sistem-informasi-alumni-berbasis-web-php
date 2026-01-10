@@ -15,7 +15,7 @@ if ($_SESSION['level'] != "user") {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Request Data Kerja</title>
+	<title>Request Data Alumni</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
@@ -41,11 +41,11 @@ if ($_SESSION['level'] != "user") {
 <body>
 
 
-	<div class="container-contact100">
-		<div class="wrap-contact100">
-			<form class="contact100-form validate-form" enctype="multipart/form-data" method="POST">
+	<<div class="container-contact100">
+		<div class="wrap-contact100" style="width: 1000px;">
+			<form class="contact100-form validate-form" enctype="multipart/form-data" method="POST" action="proses_tambah.php" onsubmit="return validateForm();">
 				<span class="contact100-form-title">
-					Request Data Kerja
+					Requst Tambah Data Pelatih
 				</span>
 
 				<div class="wrap-input100 validate-input" data-validate="Ketik namamu bambang!">
@@ -54,43 +54,60 @@ if ($_SESSION['level'] != "user") {
 					<span class="focus-input100"></span>
 				</div>
 
-				<div class="wrap-input100 validate-input" data-validate = "Jenis kelamin dibutuhkan!">
+				<div class="wrap-input100 validate-input" data-validate="Jenis kelamin dibutuhkan!">
 					<span class="label-input100">Jenis Kelamin</span>
 					<div>
-					<select class="selection-2" name="gender">
-						<option value="Pria">Pria</option>
-						<option value="Wanita">Wanita</option>
-					</select>
+						<select class="selection-2" name="gender">
+							<option value="Pria">Pria</option>
+							<option value="Wanita">Wanita</option>
+						</select>
 					</div>
 					<span class="focus-input100"></span>
 				</div>
 
-				<div class="wrap-input100 validate-input" data-validate="Masukkan nama perusahaanya!">
-                    <span class="label-input100">Nama Perusahaan</span>
-                    <input class="input100" type="text" name="namaperusahaan" placeholder="Masukkan nama Perusahaan!">
+				<div class="wrap-input100 validate-input" data-validate="Masukkan nama perusahaannya!">
+					<span class="label-input100">Pendidikan Terakhir</span>
+					<div>
+						<select class="selection-2" name="pendidikan_terakhir" required>
+							<option value="SD/MI">SD/MI</option>
+							<option value="SMP/MTS">SMP/MTS</option>
+							<option value="SMA/SMK">SMA/SMK</option>
+							<option value="SMA/SMK">Sarjana S1</option>
+							<option value="SMA/SMK">Pasca Sarjana S2</option>
+						</select>
+					</div>
 					<span class="focus-input100"></span>
 				</div>
 
-				   <div class="wrap-input100 validate-input" data-validate="Masukkan jenis pelatihanmu!">
-						<span class="label-input100">Jenis Pelatihan</span>
-						<input class="input100" type="text" name="jenis_pelatihan" placeholder="Masukkan jenis pelatihanmu!">
-					   <span class="focus-input100"></span>
-				   </div>
+				<div class="wrap-input100 validate-input" data-validate="Masukkan jenis pelatihanmu!">
+					<span class="label-input100">Jenis Pelatihan</span>
+					<div>
+						<select class="selection-2" name="jenis_pelatihan" required>
+							<option value="Pelatih Pengelolaan BUM Desa">Pelatih Pengelolaan BUM Desa</option>
+							<option value="Pelatih Pembangunan Desa Wisata">Pelatih Pembangunan Desa Wisata</option>
+							<option value="Pelatih Kader Pemberdayaan Masyarakat Desa">Pelatih Kader Pemberdayaan Masyarakat Desa</option>
+							<option value="Pelatih Berbasis Kompetensi Calon Transmigran">Pelatih Berbasis Kompetensi Calon Transmigran</option>
+							<option value="Pelatih Produk Unggulan Kawasan Desa">Pelatih Produk Unggulan Kawasan Desa</option>
+						</select>
+					</div>
+					<span class="focus-input100"></span>
+				</div>
 
 
-				<div class="wrap-input100 validate-input" data-validate = "Masukkan Tahun Kerjamu!">
+				<div class="wrap-input100 validate-input" data-validate="Masukkan Tahun Kerjamu!">
 					<span class="label-input100">Kapan kamu berkerja?</span><br>
 					<input class="input100" type="number" min="1900" max="2099" step="1" value="2000" name="tahun" />
 					<span class="focus-input100"></span>
-                </div>
-                
-				<img id="preview" src="" alt="" width="320px"/>
+				</div>
 
-                <div class="wrap-input100">
+				<img id="preview" src="" alt="" width="320px" />
+
+				<div class="wrap-input100">
 					<span class="label-input100">Foto Profil</span><br>
 					<input type="file" name="gambar" accept="image/*" onchange="showLive(this,'preview')" />
 					<span class="focus-input100"></span>
 				</div>
+
 				<input type="hidden" name="permissions" value="1" />
 				<div class="container-contact100-form-btn">
 					<div class="wrap-contact100-form-btn">
